@@ -1,28 +1,28 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   libftprintf.h                                      :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jamsilva <jamsilva@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/06/10 19:51:10 by jamsilva          #+#    #+#             */
-/*   Updated: 2026/06/10 19:51:10 by jamsilva         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+NAME = libftprintf.a
 
-# ifndef LIBFTPRINTF_H
-# define LIBFTPRINTF_H
+CC = cc
+CFLAGS = -Wall -Wextra -Werror
 
-#include <stdio.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <stdarg.h>
+SRC = \
+			ft_printf.c \
+			ft_printf_utils.c
 
-int	ft_printf(const char *format, ...);
-int	print_format(char specifier, va_list ap);
-int ft_putnbr_base(long nbr, int base);
-int ft_putnbr_base(long nbr, int base);
-int ft_print_str(char *str);
-int ft_print_char(int	c);
+OBJS = $(SRC:.c=.o)
 
-#endif
+all: $(NAME)
+
+$(NAME): $(OBJS)
+	ar rcs $(NAME) $(OBJS)
+
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
+
+clean:
+	rm -f $(OBJS)
+
+fclean: clean
+	rm -f $(NAME)
+
+re: fclean all
+
+.PHONY: all clean fclean re

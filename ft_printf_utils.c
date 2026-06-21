@@ -1,62 +1,62 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_printf_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jamsilva <jamsilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/06/10 19:28:52 by jamsilva          #+#    #+#             */
-/*   Updated: 2026/06/10 19:28:52 by jamsilva         ###   ########.fr       */
+/*   Created: 2026/06/10 21:27:09 by jamsilva          #+#    #+#             */
+/*   Updated: 2026/06/12 15:16:20 by jamsilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libftprintf.h"
+#include "ft_printf.h"
 
-int	print_format(char specifier, va_list ap)
+int	ft_print_char(int c)
 {
-	int count;
+	return (write(1, &c, 1));
+}
 
+int	ft_print_str(char	*str)
+{
+	int	count;
+
+	if (!str)
+		return (write(1, "(null)", 6));
 	count = 0;
-	if (specifier == 'c')
-		count += ft_print_char(va_arg(ap, int));
-	else if (specifier == 's')
-		count += ft_print_str(va_arg(ap, char *));
-	else if (specifier == 'd' || specifier == 'i')
-		count += ft_putnbr_base(va_arg(ap, int), 10, "0123456789");
-	else if (specifier == 'x')
-		count += ft_putnbr_base(va_arg(ap, unsigned int), 16, "0123456789abcdef");
-	else if (specifier == 'X')
-		count += ft_putnbr_base(va_arg(ap, unsigned int), 16, "0123456789ABCDEF");
-	else if (specifier == 'u')
-		count += ft_putnbr_base(va_arg(ap, unsigned int), 10, "0123456789");
-	else if (specifier == 'p')
+	while (*str)
 	{
-		unsigned long long ptr = (unsigned long long)va_arg(ap, void *);
-		count += write(1, "0x", 2);
-		count += ft_putnbr_base(ptr, 16, "0123456789abcdef");
+		ft_print_char((int)*str);
+		++count;
+		++str;
 	}
-	else if (specifier == '%')
-		count += ft_print_char('%');
-	else
-		count += write(1, &specifier, 1);
 	return (count);
 }
 
-int	ft_printf(const char *format, ...)
+int	ft_putnbr(int nb)
 {
-	va_list	ap;
+	long	n;
+	int		count;
+
+	n = nb;
+	count = 0;
+	if (n < 0)
+	{
+		count += write(1, "-", 1);
+		n = -n;
+	}
+	if (n >= 10)
+		count += ft_putnbr(n / 10);
+	count += ft_print_char((n % 10) + '0');
+	return (count);
+}
+
+int	ft_putnbr_base_unsigned(unsigned long long nbr, int base, char *symbols)
+{
 	int	count;
 
-	va_start(ap, format);
-	count = 0;
-	while (*format)
-	{
-		if (*format == '%')
-			count += print_format(*(++format), ap);
-		else
-			count += write(1, format, 1);
-		++format;
-	}
-	va_end(ap);
-	return (count);
+	if (nbr < (unsigned long long)base)
+		return (ft_print_char(symbols[nbr]));
+	count = ft_putnbr_base_unsigned(nbr / base, base, symbols);
+	return (count + ft_putnbr_base_unsigned(nbr % base, base, symbols));
 }
