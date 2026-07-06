@@ -1,3 +1,5 @@
+<i>This project has been created as part of the 42 curriculum by jamsilva</i>
+
 # FT_PRINTF
 
 ![Language](https://img.shields.io/badge/language-C-blue.svg)
