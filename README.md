@@ -1,5 +1,9 @@
 # FT_PRINTF
 
+![Language](https://img.shields.io/badge/language-C-blue.svg)
+![42](https://img.shields.io/badge/42-Ft_Printf-black.svg)
+![Status](https://img.shields.io/badge/status-Completed-success.svg)
+
 ## Description
 
 ft_printf is one of the core projects in the curriculum. The goal is to recreate the behavior of the standard C printf() function while gaining a deeper understanding of variadic functions, formatted output, and low-level memory management.
