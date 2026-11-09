@@ -8,6 +8,16 @@
 ![Score](https://img.shields.io/badge/🏆-100%2F100-brightgreen)
 ![Norminette](https://img.shields.io/badge/norminette-passing-brightgreen.svg)
 
+---
+
+# Illustration
+
+<p align="center">
+  <img src="docs/ft_printf_processo.gif" alt="Simulação visual do funcionamento do printf" width="720">
+</p>
+
+---
+
 ## Description
 
 ft_printf is one of the core projects in the curriculum. The goal is to recreate the behavior of the standard C printf() function while gaining a deeper understanding of variadic functions, formatted output, and low-level memory management.
